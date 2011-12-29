@@ -16,4 +16,8 @@ public class Test001MixedTestingActivity extends Activity {
     public void onGoBtnClick(View target) {
     	startActivity(new Intent(Test001MixedTestingActivity.this,EntryPageActivity.class));
     }
+    
+    public void onGoLayoutWeightBtnClick(View target) {
+    	startActivity(new Intent(Test001MixedTestingActivity.this,LayoutWeightActivity.class));
+    }
 }

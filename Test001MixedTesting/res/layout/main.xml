@@ -5,7 +5,29 @@
     android:orientation="vertical" >
     <FrameLayout android:id="@+id/frameLayout1" android:layout_width="match_parent" android:layout_height="match_parent">
         <TextView android:text="First Page" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center_horizontal" android:id="@+id/firstPageLabel"></TextView>
-        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="Go" android:id="@+id/goBtn" android:onClick="onGoBtnClick"></Button>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/goBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onGoBtnClick"
+                android:text="Go" />
+
+            <Button
+                android:id="@+id/goLayoutWeightBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Layout Weight" android:onClick="onGoLayoutWeightBtnClick"/>
+
+        </LinearLayout>
+
     </FrameLayout>
 
 </LinearLayout>
