@@ -58,9 +58,20 @@ public class EntryPageActivity extends ListActivity {
 				textView.setText("/");
 				pathRow.addView(textView);
 			} else {
+				String linkPath = "/";
 				for (int i = 0; i < pathList.length - 1; i++) {
 					Button btn = new Button(this);
-					btn.setText(pathList[i] + "/");
+					String currentDir = pathList[i] + "/";
+					btn.setText(currentDir);
+					linkPath = linkPath + currentDir;
+					btn.setTag(linkPath);
+					btn.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+							String linkPath = (String)v.getTag();
+							File linkDir = new File(linkPath);
+							updateList(linkDir);
+						}
+					});
 					pathRow.addView(btn);
 				}
 				TextView textView = new TextView(this);
