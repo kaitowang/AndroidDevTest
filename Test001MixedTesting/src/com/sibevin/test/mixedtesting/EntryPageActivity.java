@@ -18,18 +18,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class EntryPageActivity extends ListActivity {
+public class EntryPageActivity extends ListActivity implements FileExploreBehavior {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.entry_page);
 		File sdRootDir = Environment.getExternalStorageDirectory();
-		// File sdRootDir = Environment.getRootDirectory();
 		pathRow = (LinearLayout) findViewById(R.id.pathRow);
 		pathViewer = (HorizontalScrollView) findViewById(R.id.pathViewer);
 		updateList(sdRootDir);
@@ -43,9 +43,9 @@ public class EntryPageActivity extends ListActivity {
 	}
 
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		File selectedFile = (File) adapter.getItem(position);
-		if (selectedFile.isDirectory() && selectedFile.canRead()) {
-			updateList(selectedFile);
+		FileItem selectedItem = (FileItem) adapter.getItem(position);
+		if (selectedItem.file.isDirectory() && selectedItem.file.canRead()) {
+			updateList(selectedItem.file);
 		}
 	}
 
@@ -106,6 +106,7 @@ public class EntryPageActivity extends ListActivity {
 			File[] files = rootDir.listFiles();
 			List<File> dirList = new ArrayList<File>();
 			List<File> fileList = new ArrayList<File>();
+			fileItemList = new ArrayList<FileItem>();
 			for (File file : files) {
 				if (file.isDirectory()) {
 					dirList.add(file);
@@ -115,12 +116,17 @@ public class EntryPageActivity extends ListActivity {
 			}
 			Collections.sort(dirList);
 			Collections.sort(fileList);
-			dirFileList = new ArrayList<File>(dirList);
-			dirFileList.addAll(fileList);
+			for(File file : dirList) {
+				//TODO: use a global file list to store the checked results.
+				fileItemList.add(new FileItem(file,false));
+			}
+			for(File file : fileList) {
+				fileItemList.add(new FileItem(file,false));
+			}
 		}
 
 		public Object getItem(int position) {
-			return dirFileList.get(position);
+			return fileItemList.get(position);
 		}
 
 		public long getItemId(int position) {
@@ -128,7 +134,7 @@ public class EntryPageActivity extends ListActivity {
 		}
 
 		public int getCount() {
-			return dirFileList.size();
+			return fileItemList.size();
 		}
 
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -140,32 +146,85 @@ public class EntryPageActivity extends ListActivity {
 						.findViewById(R.id.icon_view);
 				holder.text = (TextView) convertView
 						.findViewById(R.id.text_view);
+				holder.checkbox = (CheckBox) convertView
+						.findViewById(R.id.checkbox_view);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			File file = (File) getItem(position);
-			holder.text.setText(file.getName());
-			if (file.isDirectory()) {
+			FileItem fileItem = (FileItem) getItem(position);
+			holder.text.setText(fileItem.file.getName());
+			if (fileItem.file.isDirectory()) {
 				holder.icon.setImageBitmap(dirIcon);
-			} else if (AppUtil.isATextFile(file)) {
+			} else if (AppUtil.isATextFile(fileItem.file)) {
 				holder.icon.setImageBitmap(textFileIcon);
 			} else {
 				holder.icon.setImageBitmap(nonTextFileIcon);
 			}
+			/*
+			 * Because the checkbox is created dynamically, i.e. the status of
+			 * a checkbox will not be stored. We store the checked info in the
+			 * FileItem.
+			 */
+			holder.checkbox.setChecked(fileItem.checked);
+			holder.checkbox.setTag(position);
+			holder.checkbox.setFocusable(false);
+			holder.checkbox.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					int position = (Integer)v.getTag();
+					FileItem fileItem = fileItemList.get(position);
+					if(fileItem.checked) {
+						fileItem.checked = false;
+					} else {
+						fileItem.checked = true;
+					}
+				}
+			});
 			return convertView;
 		}
 
 		static class ViewHolder {
 			ImageView icon;
 			TextView text;
+			CheckBox checkbox;
 		}
 
 		private LayoutInflater inflater;
 		private Bitmap textFileIcon;
 		private Bitmap nonTextFileIcon;
 		private Bitmap dirIcon;
-		private List<File> dirFileList;
+		private List<FileItem> fileItemList;
+	}
+
+	static class FileItem
+	{
+		public FileItem(File inputFile, boolean inputChecked)
+		{
+			file = inputFile;
+			checked = inputChecked;
+		}
+		public File file;
+		public boolean checked;
+	}
+
+	public void copy() {
+		Log.d("Menu","copy clicked.");
+	}
+
+	public void cut() {
+		Log.d("Menu","cut clicked.");
+	}
+
+	public void delete() {
+		Log.d("Menu","delete clicked.");
+	}
+
+	public void paste() {
+		Log.d("Menu","paste clicked.");
+	}
+
+	public void rename() {
+		Log.d("Menu","rename clicked.");
 	}
 
 	private FileListAdapter adapter;
