@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.sibevin.test.mixedtesting.CommandButton.CommandType;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -24,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EntryPageActivity extends ListActivity implements FileExploreBehavior {
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class EntryPageActivity extends ListActivity implements FileExploreBehavi
 		pathRow = (LinearLayout) findViewById(R.id.pathRow);
 		pathViewer = (HorizontalScrollView) findViewById(R.id.pathViewer);
 		updateList(sdRootDir);
+		initMenu();
 	}
 
 	public void onPrevFolderBtnClick(View target) {
@@ -87,6 +91,54 @@ public class EntryPageActivity extends ListActivity implements FileExploreBehavi
 			currentDir = rootDir;
 			setListAdapter(adapter);
 		}
+	}
+
+	private void initMenu() {
+		LinearLayout mainMenu = (LinearLayout) this.findViewById(R.id.mainMenu);
+		CommandType[] commandList = {
+				CommandType.COPY,
+				CommandType.CUT,
+				CommandType.DELETE,
+				CommandType.PASTE,
+				CommandType.RENAME};
+		CommandHint hint = new CommandHint(this);
+		for(CommandType type : commandList) {
+			mainMenu.addView(CommandButton.createButton(type, this, this, hint));
+		}
+	}
+
+	private class CommandHint implements FileExploreBehavior {
+
+		public CommandHint(Context context) {
+			parent = context;
+		}
+
+		public void copy() {
+			showHint(CommandType.COPY);
+		}
+
+		public void cut() {
+			showHint(CommandType.CUT);
+		}
+
+		public void delete() {
+			showHint(CommandType.DELETE);
+		}
+
+		public void paste() {
+			showHint(CommandType.PASTE);
+		}
+
+		public void rename() {
+			showHint(CommandType.RENAME);
+		}
+
+		private void showHint(CommandType type) {
+			Toast hint = Toast.makeText(parent, type.toString(), Toast.LENGTH_SHORT);
+			hint.show();
+		}
+
+		Context parent;
 	}
 
 	private static class FileListAdapter extends BaseAdapter {
