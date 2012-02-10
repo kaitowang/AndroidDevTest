@@ -20,6 +20,7 @@
         </activity>
         <activity android:name="EntryPageActivity"></activity>
         <activity android:name="LayoutWeightActivity"></activity>
+        <activity android:name="OOBEActivity"></activity>
     </application>
 
 </manifest>

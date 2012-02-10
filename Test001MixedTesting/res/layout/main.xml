@@ -21,10 +21,18 @@
                 android:text="Go" />
 
             <Button
+                android:id="@+id/goOOBEBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onGoOOBEBtnClick"
+                android:text="OOBE" />
+
+            <Button
                 android:id="@+id/goLayoutWeightBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Layout Weight" android:onClick="onGoLayoutWeightBtnClick"/>
+                android:text="Layout Weight"
+				android:onClick="onGoLayoutWeightBtnClick"/>
 
         </LinearLayout>
 
