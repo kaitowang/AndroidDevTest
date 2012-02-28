@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="act_cancel">Cancel</string>
+    <string name="act_ok">OK</string>
+    <string name="help_tap">Tap = Click/Select</string>
+    <string name="help_hold">Hold/Long Pressing = Help</string>
+    <string name="help_swipe">Swipe = Move/Switch</string>
+    <string name="act_copy">Copy</string>
+    <string name="act_cut">Cut</string>
+    <string name="act_delete">Delete</string>
+    <string name="act_paste">Paste</string>
+    <string name="act_create">Create</string>
+    <string name="act_load">Load</string>
+    <string name="act_back">Back</string>
+    <string name="act_next">Next</string>
+    <string name="act_yes">Yes</string>
+    <string name="act_no">No</string>
+    <string name="help_more">More help and tips are in Settings &gt; Help.</string>
+
+</resources>
