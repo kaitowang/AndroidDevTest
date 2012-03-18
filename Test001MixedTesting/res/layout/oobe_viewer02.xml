@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:text="Next"
+        android:onClick="onNextBtnClicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
+    <Button
+        android:id="@+id/backBtn"
+        android:text="Back"
+        android:onClick="onBackBtnClicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
+
+    <HorizontalScrollView
+        android:id="@+id/oobePageSwitcher"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/backBtn"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:id="@+id/oobePageRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" android:gravity="center_vertical"/>
+
+    </HorizontalScrollView>
+
+    <ImageSwitcher
+        android:id="@+id/oobePageIndex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@id/backBtn"
+        android:layout_toLeftOf="@id/nextBtn"
+        android:layout_toRightOf="@id/backBtn" >
+    </ImageSwitcher>
+
+</RelativeLayout>
