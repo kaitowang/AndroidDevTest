@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <Button
-        android:id="@+id/nextBtn"
+        android:id="@+id/oobeNextBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -13,7 +13,7 @@
         android:text="Next" />
 
     <Button
-        android:id="@+id/backBtn"
+        android:id="@+id/oobeBackBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -25,7 +25,7 @@
         android:id="@+id/frameLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/backBtn"
+        android:layout_above="@id/oobeBackBtn"
         android:layout_alignParentTop="true" >
 
         <ViewFlipper
@@ -41,8 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignTop="@id/backBtn"
-        android:layout_toLeftOf="@id/nextBtn"
-        android:layout_toRightOf="@id/backBtn" />
+        android:layout_alignTop="@id/oobeBackBtn"
+        android:layout_toLeftOf="@id/oobeNextBtn"
+        android:layout_toRightOf="@id/oobeBackBtn" />
 
 </RelativeLayout>

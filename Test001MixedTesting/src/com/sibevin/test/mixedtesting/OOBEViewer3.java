@@ -14,6 +14,7 @@ import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -50,6 +51,10 @@ public class OOBEViewer3 extends Activity implements OnGestureListener,
 
 		gestureDetector = new GestureDetector(this);
 
+		// init btns
+		nextBtn = (Button) findViewById(R.id.oobeNextBtn);
+		backBtn = (Button) findViewById(R.id.oobeBackBtn);
+
 		// add OOBE pages to PageFlipper
 		oobePageFlipper = (ViewFlipper) findViewById(R.id.oobePageFlipper);
 		pageIndexSwitcher = (ViewFlipper) findViewById(R.id.oobePageIndexSwitcher);
@@ -74,6 +79,8 @@ public class OOBEViewer3 extends Activity implements OnGestureListener,
 			index.setImageBitmap(helpArr[i].pageIndexPic);
 			pageIndexSwitcher.addView(index);
 		}
+		currentIndex = 0;
+		updateUI();
 
 		// setup touch listener
 		oobePageFlipper.setOnTouchListener(this);
@@ -105,13 +112,13 @@ public class OOBEViewer3 extends Activity implements OnGestureListener,
 		outAnim.setAnimationListener(animListener);
 		oobePageFlipper.setInAnimation(inAnim);
 		oobePageFlipper.setOutAnimation(outAnim);
-		
-		//init page index switcher animation
+
+		// init page index switcher animation
 		AnimationSet fadeInAnim = AppAnim.create(AppAnim.Type.FI, OOBE_FLING_ANIME_TIME);
 		AnimationSet fadeOutAnim = AppAnim.create(AppAnim.Type.FO, OOBE_FLING_ANIME_TIME);
 		pageIndexSwitcher.setInAnimation(fadeInAnim);
 		pageIndexSwitcher.setInAnimation(fadeOutAnim);
-		
+
 	}
 
 	// ---Implement OnGestureListener---
@@ -168,11 +175,16 @@ public class OOBEViewer3 extends Activity implements OnGestureListener,
 		moveToPrevious();
 	}
 
-	// ---Private functions---
+	// ---
 
 	private void moveToNext() {
 		if (isAnimRunning) {
 			return;
+		}
+		if (currentIndex + 1 >= helpArr.length) {
+			return;
+		} else {
+			currentIndex++;
 		}
 		if (!isMoveToLeft) {
 
@@ -189,11 +201,17 @@ public class OOBEViewer3 extends Activity implements OnGestureListener,
 		oobePageFlipper.showNext();
 		pageIndexSwitcher.showNext();
 		oobePageFlipper.refreshDrawableState();
+		updateUI();
 	}
 
 	private void moveToPrevious() {
 		if (isAnimRunning) {
 			return;
+		}
+		if (currentIndex - 1 < 0) {
+			return;
+		} else {
+			currentIndex--;
 		}
 		if (isMoveToLeft) {
 			AnimationSet inAnim = AppAnim.create(AppAnim.Type.RFI,
@@ -209,6 +227,19 @@ public class OOBEViewer3 extends Activity implements OnGestureListener,
 		oobePageFlipper.showPrevious();
 		pageIndexSwitcher.showPrevious();
 		oobePageFlipper.refreshDrawableState();
+		updateUI();
+	}
+
+	private void updateUI() {
+		if (currentIndex == 0) {
+			backBtn.setVisibility(View.INVISIBLE);
+		} else if (currentIndex == 1) {
+			backBtn.setVisibility(View.VISIBLE);
+		} else if (currentIndex == helpArr.length - 1) {
+			nextBtn.setVisibility(View.INVISIBLE);
+		} else if (currentIndex == helpArr.length - 2) {
+			nextBtn.setVisibility(View.VISIBLE);
+		}
 	}
 
 	public class HelpPicStrPair {
@@ -229,8 +260,11 @@ public class OOBEViewer3 extends Activity implements OnGestureListener,
 	private GestureDetector gestureDetector;
 	private AnimationListener animListener;
 	private ViewFlipper pageIndexSwitcher;
+	private Button nextBtn;
+	private Button backBtn;
 	private boolean isMoveToLeft;
 	private boolean isAnimRunning;
+	private int currentIndex;
 
 	private final int OOBE_FLING_ANIME_TIME = 300;
 
