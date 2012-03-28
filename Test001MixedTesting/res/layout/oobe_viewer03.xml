@@ -10,7 +10,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:onClick="onNextBtnClicked"
-        android:text="Next" />
+        android:text="@string/next_btn_label" />
 
     <Button
         android:id="@+id/oobeBackBtn"
@@ -19,7 +19,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:onClick="onBackBtnClicked"
-        android:text="Back" />
+        android:text="@string/back_btn_label" />
 
     <FrameLayout
         android:id="@+id/frameLayout1"

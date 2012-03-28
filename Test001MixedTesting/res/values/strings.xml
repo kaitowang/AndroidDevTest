@@ -3,5 +3,7 @@
 
     <string name="hello">Hello World, Test001MixedTestingActivity!</string>
     <string name="app_name">Test001MixedTesting</string>
+    <string name="next_btn_label">Next</string>
+    <string name="back_btn_label">Back</string>
 
 </resources>

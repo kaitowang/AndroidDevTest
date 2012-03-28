@@ -33,6 +33,16 @@ public class Test001MixedTestingActivity extends Activity {
 				OOBEViewer3.class));
 	}
 
+	public void onGoStyleTestBtnClick(View target) {
+		startActivity(new Intent(Test001MixedTestingActivity.this,
+				StyleTest.class));
+	}
+
+	public void onGoAnimeTestBtnClick(View target) {
+		startActivity(new Intent(Test001MixedTestingActivity.this,
+				AnimeTest.class));
+	}
+
 	public void onGoLayoutWeightBtnClick(View target) {
 		startActivity(new Intent(Test001MixedTestingActivity.this,
 				LayoutWeightActivity.class));

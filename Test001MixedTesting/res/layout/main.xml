@@ -4,25 +4,24 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <FrameLayout
-        android:id="@+id/frameLayout1"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/firstPageLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="First Page" >
-        </TextView>
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal" >
 
         <LinearLayout
-            android:id="@+id/linearLayout1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
             android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/firstPageLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="First Page" />
 
             <Button
                 android:id="@+id/goBtn"
@@ -53,12 +52,27 @@
                 android:text="OOBE03" />
 
             <Button
+                android:id="@+id/goStyleTestBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onGoStyleTestBtnClick"
+                android:text="StyleTest" />
+
+            <Button
+                android:id="@+id/goAnimeTestBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onGoAnimeTestBtnClick"
+                android:text="Anime Test" />
+
+            <Button
                 android:id="@+id/goLayoutWeightBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onGoLayoutWeightBtnClick"
                 android:text="Layout Weight" />
+
         </LinearLayout>
-    </FrameLayout>
+    </ScrollView>
 
 </LinearLayout>
